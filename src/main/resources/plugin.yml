@@ -2,3 +2,10 @@ name: MyFirstPlugin
 version: '${version}'
 main: me.myplugin.myfirstplugin.MyFirstPlugin
 api-version: '1.19'
+commands:
+  hello:
+    usage: /<command>
+    permission-message: "Только op-игроки могут использовать эту команду"
+permissions:
+  op:
+    default: op
