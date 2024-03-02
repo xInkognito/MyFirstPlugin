@@ -11,8 +11,8 @@ public class HelloCommand extends BaseCommand {
     @CommandAlias("hello|hi")
     @Description("Say hello to yourself")
     @CommandPermission("op")
-    public void OnHello(CommandSender sender) {
-        if(sender instanceof Player player) {
+    public void onHello(CommandSender sender) {
+        if (sender instanceof Player player) {
             player.sendMessage("Привет, " + player.getName());
         }
     }

@@ -6,6 +6,8 @@ commands:
   hello:
     usage: /<command>
     permission-message: "Только op-игроки могут использовать эту команду"
+  food:
+    usage: /<command>
 permissions:
   op:
     default: op
