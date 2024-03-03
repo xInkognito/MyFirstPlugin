@@ -8,6 +8,9 @@ commands:
     permission-message: "Только op-игроки могут использовать эту команду"
   food:
     usage: /<command>
+  bow:
+    usage: /<command>
+    permission-message: "Только op-игроки могут использовать эту команду"
 permissions:
   op:
     default: op

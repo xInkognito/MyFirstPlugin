@@ -1,6 +1,8 @@
 plugins {
     id 'com.github.johnrengelman.shadow' version '8.1.1'
     id 'java'
+    id("java-library")
+    id("io.papermc.paperweight.userdev") version "1.5.11"
 }
 
 group = 'me.myplugin'
@@ -16,7 +18,13 @@ repositories {
         name = "sonatype"
         url = "https://oss.sonatype.org/content/groups/public/"
     }
-    maven { url = "https://repo.aikar.co/content/groups/aikar/" }
+    maven {
+        url = "https://repo.aikar.co/content/groups/aikar/"
+    }
+    maven {
+        name = "CodeMC"
+        url = uri("https://repo.codemc.io/repository/maven-public/")
+    }
 }
 
 dependencies {
@@ -24,6 +32,8 @@ dependencies {
     implementation 'org.projectlombok:lombok:1.18.22'
     compileOnly "io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT"
     implementation "co.aikar:acf-paper:0.5.1-SNAPSHOT"
+    paperweightDevelopmentBundle("io.papermc.paper:dev-bundle:1.20-R0.1-SNAPSHOT")
+    implementation("de.tr7zw:item-nbt-api:2.11.2")
 }
 
 def targetJavaVersion = 17
@@ -56,11 +66,19 @@ compileJava.options.compilerArgs.add("-parameters")
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+    sourceCompatibility = targetCompatibility = JavaVersion.VERSION_17
 }
 
+tasks {
+    assemble {
+        dependsOn(reobfJar) // Run reobfJar on build
+    }
+}
 shadowJar {
     relocate 'co.aikar.commands', 'me.myplugin.acf'
     relocate 'co.aikar.locales', 'me.myplugin.locales'
+    relocate("de.tr7zw.changeme.nbtapi", "me.myplugin.nbtapi")
 }
+
 
 build.dependsOn shadowJar
